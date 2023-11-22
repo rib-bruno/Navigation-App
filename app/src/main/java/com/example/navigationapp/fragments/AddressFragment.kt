@@ -5,16 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.example.navigationapp.R
-import com.example.navigationapp.model.PersonModel
+import com.example.navigationapp.databinding.FragmentAddressBinding
 import com.example.navigationapp.databinding.FragmentPersonalDataBinding
 import com.example.navigationapp.extensions.text
+import com.example.navigationapp.model.PersonModel
 
-class PersonalDataFragment : Fragment() {
+class AddressFragment : Fragment(){
 
     //uma variável só pra settar e uma só pra recuperar
-    private var _binding: FragmentPersonalDataBinding? = null
+    private var _binding: FragmentAddressBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,7 +25,7 @@ class PersonalDataFragment : Fragment() {
         group: ViewGroup?,
         saved: Bundle?
     ): View {
-        _binding = FragmentPersonalDataBinding.inflate(inflater, group, false)
+        _binding = FragmentAddressBinding.inflate(inflater, group, false)
         return binding.root
     }
 
@@ -36,11 +35,12 @@ class PersonalDataFragment : Fragment() {
         //recuperando o valor digitado ao clicar no botão
         binding.btnNext.setOnClickListener {
             val model = PersonModel(
-                name = binding.tilName.text,
-                age = binding.tilAge.text.toInt()
+                street = binding.tilStreet.text ,
+                number = binding.tilNumber.text.toInt()
             )
-            findNavController().navigate(R.id.go_to_addressFragment)
-            // TODO mandar os dados para outro fragment
+            // TODO 03 mandar os dados para outro fragment
+            //TODO 04  navegar entre os fragments no click do bttn
+
         }
     }
 
@@ -49,5 +49,4 @@ class PersonalDataFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
