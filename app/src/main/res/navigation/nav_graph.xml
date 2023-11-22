@@ -20,7 +20,25 @@
         android:id="@+id/addressFragment"
         android:name="com.example.navigationapp.fragments.AddressFragment"
         android:label="AddressFragment"
-        tools:layout="@layout/fragment_address" />
+        tools:layout="@layout/fragment_address">
+    <argument
+        android:name="model"
+        app:argType="com.example.navigationapp.model.PersonModel" />
+        <action
+            android:id="@+id/go_to_resumeFragment"
+            app:destination="@id/resumeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resumeFragment"
+        tools:layout="@layout/fragment_resume"
+        android:name="com.example.navigationapp.fragments.ResumeFragment"
+        android:label="ResumeFragment">
+        <argument
+            android:name="model"
+            app:argType="com.example.navigationapp.model.PersonModel" />
+
+    </fragment>
 
 
 </navigation>

@@ -1,12 +1,15 @@
 package com.example.navigationapp.fragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.navigationapp.databinding.FragmentAddressBinding
-import com.example.navigationapp.databinding.FragmentPersonalDataBinding
 import com.example.navigationapp.extensions.text
 import com.example.navigationapp.model.PersonModel
 
@@ -18,6 +21,9 @@ class AddressFragment : Fragment(){
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    //uma das formas de se recuperar
+    private val args by navArgs<AddressFragmentArgs>()
 
 
     override fun onCreateView(
@@ -32,18 +38,20 @@ class AddressFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e(TAG, "onViewCreated : ${args.model}")
+
         //recuperando o valor digitado ao clicar no botão
         binding.btnNext.setOnClickListener {
-            val model = PersonModel(
-                street = binding.tilStreet.text ,
+            //pelo model ser uma data class (para nao ter que instanciar um novo objeto:
+          val model = args.model.copy(
+                street = binding.tilStreet.text,
                 number = binding.tilNumber.text.toInt()
             )
-            // TODO 03 mandar os dados para outro fragment
-            //TODO 04  navegar entre os fragments no click do bttn
 
+           val directions = AddressFragmentDirections.goToResumeFragment(model)
+            findNavController().navigate(directions)
         }
     }
-
     //limpar a referência
     override fun onDestroyView() {
         super.onDestroyView()
